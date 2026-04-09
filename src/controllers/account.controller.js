@@ -1,0 +1,55 @@
+import accountModel from '../models/account.model.js';
+import mongoose from 'mongoose';
+
+
+async function createAccountController(req, res){
+    const user = req.user;
+
+    const account = await accountModel.create({
+        user: user._id
+    })
+
+    res.status(201).json({
+        account
+    })
+}
+
+async function getAccountsController(req, res){
+    const accounts = await accountModel.find({user: req.user._id});
+
+    res.status(200).json({
+        accounts
+    })
+}
+
+async function getAccountBalance(req, res){
+    const {accountId} = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(accountId)) {
+        return res.status(400).json({
+            message: "Invalid account ID format"
+        });
+    }
+
+    const account = await accountModel.findOne({
+        _id: accountId,
+        user: req.user._id
+    })
+
+    if(!account){
+        return res.status(404).json({
+            message: "Account not found"
+        })
+    }
+
+    const balance = await account.getBalance();
+
+    res.status(200).json({
+        accountId: account._id,
+        balance
+    })
+
+
+}
+
+export {createAccountController, getAccountsController, getAccountBalance};
