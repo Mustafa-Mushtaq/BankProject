@@ -146,4 +146,3 @@ This project is licensed under the ISC License.
 - This is a learning project and should not be used in production without additional security measures.
 - Ensure all environment variables are properly configured before running.
 - The system includes a blacklist model for security, but implementation details may vary.</content>
-<parameter name="filePath">c:\Users\PMLS\Documents\Mahir\Backend COurse\BankProject\README.md
