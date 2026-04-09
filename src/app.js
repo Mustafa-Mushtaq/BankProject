@@ -9,6 +9,10 @@ const app = express();
 app.use(cookieparser());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+    res.send("Welcome to the Bank API");
+});
+
 app.use("/api/auth", authRouter);
 app.use("/api/accounts", router);  
 app.use("/api/transactions", transactionRoutes);
